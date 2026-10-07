@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
+import type { ResponsiveImage } from "../data/types";
+import Image from "./Image";
 
 type Crumb = { label: string; to?: string };
 
@@ -11,12 +13,17 @@ export default function PageHero({
 }: {
   title: string;
   subtitle?: string;
-  image: string;
+  image: ResponsiveImage;
   crumbs: Crumb[];
 }) {
   return (
     <section className="relative flex min-h-[320px] items-end overflow-hidden bg-charcoal-900">
-      <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+      <Image
+        image={image}
+        priority
+        sizes="100vw"
+        className="absolute inset-0 h-full w-full object-cover opacity-40"
+      />
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-charcoal-950/70 to-charcoal-950/40" />
       <div className="relative mx-auto w-full max-w-7xl px-6 pb-10 pt-28">
         <div className="flex flex-wrap items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-charcoal-300">

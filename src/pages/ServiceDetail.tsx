@@ -5,15 +5,15 @@ import SectionHeading from "../components/SectionHeading";
 import CTASection from "../components/CTASection";
 import { ServiceIcon } from "../components/ServiceIcon";
 import { PrimaryButton, OutlineDarkButton } from "../components/Buttons";
-import { SERVICES } from "../data/content";
+import { getService, listServices } from "../services/content";
 
 export default function ServiceDetail() {
   const { slug } = useParams();
-  const service = SERVICES.find((s) => s.slug === slug);
+  const service = slug ? getService(slug) : undefined;
 
   if (!service) return <Navigate to="/services" replace />;
 
-  const otherServices = SERVICES.filter((s) => s.slug !== slug);
+  const otherServices = listServices().filter((s) => s.slug !== slug);
 
   return (
     <div>

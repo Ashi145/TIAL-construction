@@ -1,10 +1,12 @@
 import { MessageCircle } from "lucide-react";
-import { COMPANY } from "../data/content";
+import { getCompany } from "../services/content";
 
 export default function WhatsAppButton() {
+  const company = getCompany();
+
   return (
     <a
-      href={`https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent(
+      href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
         "Hello Tial Construction, I would like to enquire about a project."
       )}`}
       target="_blank"

@@ -1,53 +1,43 @@
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  ShieldCheck,
-  HardHat,
-  Award,
-  Users,
-  CheckCircle2,
-  Phone,
-} from "lucide-react";
+import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 import { PrimaryButton, SecondaryButton } from "../components/Buttons";
 import SectionHeading from "../components/SectionHeading";
 import { ServiceCard, ProjectCard, TestimonialCard } from "../components/Cards";
 import CTASection from "../components/CTASection";
-import { COMPANY, SERVICES, PROJECTS, TESTIMONIALS, STATS } from "../data/content";
-import { IMAGES } from "../data/images";
-
-const WHY_CHOOSE = [
-  {
-    icon: ShieldCheck,
-    title: "Trust",
-    text: "We build confidence through reliable service, honest communication and consistent delivery.",
-  },
-  {
-    icon: Award,
-    title: "Integrity",
-    text: "We value honesty, transparency and professional conduct in every client and site relationship.",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Accountability",
-    text: "We take responsibility for every stage of project delivery, from planning through to handover.",
-  },
-  {
-    icon: Users,
-    title: "Leadership",
-    text: "We seek better ways to deliver quality construction solutions for our clients and communities.",
-  },
-];
+import Image from "../components/Image";
+import { FEATURE_ICONS, VALUE_ICONS } from "../components/icons";
+import {
+  getAboutTeaserPoints,
+  getCompany,
+  getHomeSafetyFeatures,
+  getPageImages,
+  getStats,
+  getValues,
+  listFeaturedProjects,
+  listServices,
+  listTestimonials,
+} from "../services/content";
 
 export default function Home() {
-  const featuredProjects = PROJECTS.filter((p) => p.featured).slice(0, 3);
+  const company = getCompany();
+  const stats = getStats();
+  const values = getValues();
+  const services = listServices();
+  const testimonials = listTestimonials();
+  const featuredProjects = listFeaturedProjects();
+  const teaserPoints = getAboutTeaserPoints();
+  const safetyFeatures = getHomeSafetyFeatures();
+  const { hero, about, valuesBackdrop, safety } = getPageImages("home");
 
   return (
     <div>
       {/* Hero */}
       <section className="relative flex min-h-[640px] items-center overflow-hidden bg-charcoal-950">
-        <img
-          src={IMAGES.heroCrane}
+        <Image
+          image={hero}
           alt="Tial Construction building project under construction"
+          priority
+          sizes="100vw"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal-950 via-charcoal-950/80 to-charcoal-950/40" />
@@ -77,7 +67,7 @@ export default function Home() {
       {/* Trust strip */}
       <section className="border-b border-charcoal-100 bg-brand-800">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-10 sm:grid-cols-4">
-          {STATS.map((stat) => (
+          {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="font-display text-3xl font-extrabold text-gold-400 sm:text-4xl">{stat.value}</div>
               <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-brand-100">{stat.label}</div>
@@ -90,14 +80,15 @@ export default function Home() {
       <section className="py-20">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
           <div className="relative">
-            <img
-              src={IMAGES.workersDiscuss}
+            <Image
+              image={about}
               alt="Tial Construction site team reviewing project plans"
+              sizes="(min-width: 1024px) 600px, 100vw"
               className="h-[420px] w-full rounded-2xl object-cover shadow-xl"
             />
             <div className="absolute -bottom-6 -right-6 hidden max-w-xs rounded-xl bg-white p-5 shadow-xl sm:block">
               <p className="font-display text-sm font-bold text-charcoal-900">TIAL stands for:</p>
-              <p className="mt-1 text-sm text-charcoal-600">Trust · Integrity · Accountability · Leadership</p>
+              <p className="mt-1 text-sm text-charcoal-600">{values.map((value) => value.name).join(" · ")}</p>
             </div>
           </div>
           <div>
@@ -107,12 +98,7 @@ export default function Home() {
               description="Tial Construction Ltd is a construction, civil works and infrastructure company dedicated to delivering projects that meet client needs while upholding high standards of professionalism, safety and innovation."
             />
             <ul className="mt-6 space-y-3">
-              {[
-                "Clear communication from first enquiry to final handover",
-                "Disciplined site supervision and quality control",
-                "Safety-first culture across every active site",
-                "A growing portfolio of building, civil and road projects",
-              ].map((item) => (
+              {teaserPoints.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-charcoal-700">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
                   {item}
@@ -136,7 +122,7 @@ export default function Home() {
             align="center"
           />
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service, i) => (
+            {services.map((service, i) => (
               <ServiceCard service={service} index={i} key={service.slug} />
             ))}
           </div>
@@ -169,7 +155,11 @@ export default function Home() {
 
       {/* Why Choose Tial */}
       <section className="relative overflow-hidden bg-charcoal-900 py-20">
-        <img src={IMAGES.highRiseCloud} alt="" className="absolute inset-0 h-full w-full object-cover opacity-10" />
+        <Image
+          image={valuesBackdrop}
+          sizes="100vw"
+          className="absolute inset-0 h-full w-full object-cover opacity-10"
+        />
         <div className="relative mx-auto max-w-7xl px-6">
           <SectionHeading
             eyebrow="Why Choose Tial"
@@ -179,18 +169,21 @@ export default function Home() {
             light
           />
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {WHY_CHOOSE.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm transition hover:border-gold-400/50 hover:bg-white/10"
-              >
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold-400/15 text-gold-400">
-                  <item.icon className="h-7 w-7" />
+            {values.map((value) => {
+              const Icon = VALUE_ICONS[value.name];
+              return (
+                <div
+                  key={value.name}
+                  className="rounded-xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm transition hover:border-gold-400/50 hover:bg-white/10"
+                >
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold-400/15 text-gold-400">
+                    <Icon className="h-7 w-7" />
+                  </div>
+                  <h3 className="mt-5 font-display text-lg font-bold text-white">{value.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-charcoal-300">{value.description}</p>
                 </div>
-                <h3 className="mt-5 font-display text-lg font-bold text-white">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-charcoal-300">{item.text}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -205,17 +198,15 @@ export default function Home() {
               description="We place responsible site practices at the centre of project delivery and aim for workmanship and project outcomes that create lasting value."
             />
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {[
-                { icon: HardHat, label: "PPE & site induction for every worker and visitor" },
-                { icon: ShieldCheck, label: "Regular safety briefings and toolbox talks" },
-                { icon: CheckCircle2, label: "Structured quality control checkpoints" },
-                { icon: Award, label: "Environmentally responsible site management" },
-              ].map((f) => (
-                <div key={f.label} className="flex items-start gap-3 rounded-lg border border-charcoal-100 p-4">
-                  <f.icon className="h-5 w-5 shrink-0 text-brand-600" />
-                  <span className="text-sm text-charcoal-700">{f.label}</span>
-                </div>
-              ))}
+              {safetyFeatures.map((feature) => {
+                const Icon = FEATURE_ICONS[feature.icon];
+                return (
+                  <div key={feature.label} className="flex items-start gap-3 rounded-lg border border-charcoal-100 p-4">
+                    <Icon className="h-5 w-5 shrink-0 text-brand-600" />
+                    <span className="text-sm text-charcoal-700">{feature.label}</span>
+                  </div>
+                );
+              })}
             </div>
             <div className="mt-8">
               <Link
@@ -226,9 +217,10 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <img
-            src={IMAGES.helmetCloseup}
+          <Image
+            image={safety}
             alt="Construction site safety helmet"
+            sizes="(min-width: 1024px) 600px, 100vw"
             className="h-[420px] w-full rounded-2xl object-cover shadow-xl"
           />
         </div>
@@ -244,7 +236,7 @@ export default function Home() {
             description="Illustrative client feedback themes. Verified testimonials will be published with written client permission."
           />
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
+            {testimonials.map((t, i) => (
               <TestimonialCard testimonial={t} key={i} />
             ))}
           </div>
@@ -264,13 +256,13 @@ export default function Home() {
             />
             <div className="mt-6 space-y-4">
               <a
-                href={`tel:${COMPANY.phone1.replace(/\s/g, "")}`}
+                href={`tel:${company.phone1.replace(/\s/g, "")}`}
                 className="flex items-center gap-3 rounded-lg border border-charcoal-100 p-4 transition hover:border-brand-400"
               >
                 <Phone className="h-5 w-5 text-brand-600" />
                 <div>
                   <p className="text-sm font-bold text-charcoal-900">Call Us</p>
-                  <p className="text-sm text-charcoal-600">{COMPANY.phone1}</p>
+                  <p className="text-sm text-charcoal-600">{company.phone1}</p>
                 </div>
               </a>
               <PrimaryButton to="/contact" className="w-full sm:w-auto">

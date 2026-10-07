@@ -2,18 +2,20 @@ import { useState } from "react";
 import { Send, CheckCircle2, Phone, MessageCircle } from "lucide-react";
 import PageHero from "../components/PageHero";
 import SectionHeading from "../components/SectionHeading";
-import { COMPANY, SERVICES } from "../data/content";
-import { IMAGES } from "../data/images";
+import { getCompany, getPageImages, listServices } from "../services/content";
 
 export default function Quote() {
   const [submitted, setSubmitted] = useState(false);
+  const company = getCompany();
+  const services = listServices();
+  const { hero } = getPageImages("quote");
 
   return (
     <div>
       <PageHero
         title="Request a Quote"
         subtitle="Tell us about your project and our team will respond with next steps."
-        image={IMAGES.highRiseCloud}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Request a Quote" }]}
       />
 
@@ -73,7 +75,7 @@ export default function Quote() {
                       <span className="mb-1.5 block text-sm font-semibold text-charcoal-800">Project Type *</span>
                       <select required className="form-input">
                         <option value="">Select a service</option>
-                        {SERVICES.map((s) => (
+                        {services.map((s) => (
                           <option key={s.slug}>{s.title}</option>
                         ))}
                         <option>Other</option>
@@ -149,13 +151,13 @@ export default function Quote() {
               </p>
               <div className="mt-5 space-y-3">
                 <a
-                  href={`tel:${COMPANY.phone1.replace(/\s/g, "")}`}
+                  href={`tel:${company.phone1.replace(/\s/g, "")}`}
                   className="flex items-center gap-2 rounded-md bg-white/10 px-4 py-3 text-sm font-semibold transition hover:bg-white/20"
                 >
-                  <Phone className="h-4 w-4" /> {COMPANY.phone1}
+                  <Phone className="h-4 w-4" /> {company.phone1}
                 </a>
                 <a
-                  href={`https://wa.me/${COMPANY.whatsapp}`}
+                  href={`https://wa.me/${company.whatsapp}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-2 rounded-md bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition hover:opacity-90"

@@ -2,25 +2,20 @@ import { useState, type ReactNode } from "react";
 import { Briefcase, Mail, Send, CheckCircle2 } from "lucide-react";
 import PageHero from "../components/PageHero";
 import SectionHeading from "../components/SectionHeading";
-import { COMPANY } from "../data/content";
-import { IMAGES } from "../data/images";
-
-const OPEN_ROLES = [
-  { title: "Site Engineer", type: "Full-time", location: "Kampala" },
-  { title: "Quantity Surveyor", type: "Full-time", location: "Kampala" },
-  { title: "Site Foreman", type: "Contract / Project-based", location: "Various Project Sites" },
-  { title: "Health & Safety Officer", type: "Full-time", location: "Kampala" },
-];
+import { getCompany, getPageImages, listJobOpenings } from "../services/content";
 
 export default function Careers() {
   const [submitted, setSubmitted] = useState(false);
+  const company = getCompany();
+  const openRoles = listJobOpenings();
+  const { hero } = getPageImages("careers");
 
   return (
     <div>
       <PageHero
         title="Careers at Tial Construction"
         subtitle="Build your career with a team that values trust, integrity, accountability and leadership."
-        image={IMAGES.shipyardWorkers}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Careers" }]}
       />
 
@@ -32,7 +27,7 @@ export default function Careers() {
             description="Vacancies listed below are indicative of the roles Tial Construction typically recruits for. Please confirm current openings with our office before applying."
           />
           <div className="mt-10 overflow-hidden rounded-xl border border-charcoal-100">
-            {OPEN_ROLES.map((role, i) => (
+            {openRoles.map((role, i) => (
               <div
                 key={role.title}
                 className={`flex flex-col items-start justify-between gap-3 p-5 sm:flex-row sm:items-center ${
@@ -71,10 +66,10 @@ export default function Careers() {
               description="Complete the form with your details and the role you're interested in, or email your CV directly to our recruitment team."
             />
             <a
-              href={`mailto:${COMPANY.email}?subject=Job Application`}
+              href={`mailto:${company.email}?subject=Job Application`}
               className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-700"
             >
-              <Mail className="h-4 w-4" /> {COMPANY.email}
+              <Mail className="h-4 w-4" /> {company.email}
             </a>
           </div>
 
@@ -109,7 +104,7 @@ export default function Careers() {
                 <Field label="Position Applying For" required>
                   <select required className="form-input">
                     <option value="">Select a role</option>
-                    {OPEN_ROLES.map((r) => (
+                    {openRoles.map((r) => (
                       <option key={r.title}>{r.title}</option>
                     ))}
                     <option>Other / General Application</option>

@@ -3,37 +3,20 @@ import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle2 } from "l
 import PageHero from "../components/PageHero";
 import SectionHeading from "../components/SectionHeading";
 import Accordion from "../components/Accordion";
-import { COMPANY } from "../data/content";
-import { IMAGES } from "../data/images";
-
-const FAQS = [
-  {
-    q: "What areas does Tial Construction serve?",
-    a: "We serve clients primarily within Kampala and the surrounding districts in Uganda. Please contact us to confirm availability for projects outside this area.",
-  },
-  {
-    q: "How quickly will I get a response after submitting an enquiry?",
-    a: "Our team aims to respond to all enquiries within 1–2 business days. For urgent matters, please call or WhatsApp us directly.",
-  },
-  {
-    q: "Can Tial Construction provide a company profile for tenders?",
-    a: "Yes. Please email our tenders desk and we will share a company profile and supporting documents for prequalification purposes.",
-  },
-  {
-    q: "Do you provide free site visits or consultations?",
-    a: "We offer an initial consultation to understand project scope. Site visit terms will be confirmed based on project location and complexity.",
-  },
-];
+import { getCompany, getPageImages, listFaqs } from "../services/content";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const company = getCompany();
+  const faqs = listFaqs();
+  const { hero } = getPageImages("contact");
 
   return (
     <div>
       <PageHero
         title="Contact Us"
         subtitle="Call, email, WhatsApp or send us your enquiry — we're ready to help with your next project."
-        image={IMAGES.roadMachinery}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Contact" }]}
       />
 
@@ -42,16 +25,16 @@ export default function Contact() {
           <div className="lg:col-span-2">
             <SectionHeading eyebrow="Get In Touch" title="We'd Love to Hear From You" />
             <div className="mt-8 space-y-4">
-              <ContactRow icon={Phone} label="Phone" value={COMPANY.phone1} href={`tel:${COMPANY.phone1.replace(/\s/g, "")}`} />
-              <ContactRow icon={Mail} label="Email" value={COMPANY.email} href={`mailto:${COMPANY.email}`} />
+              <ContactRow icon={Phone} label="Phone" value={company.phone1} href={`tel:${company.phone1.replace(/\s/g, "")}`} />
+              <ContactRow icon={Mail} label="Email" value={company.email} href={`mailto:${company.email}`} />
               <ContactRow
                 icon={MessageCircle}
                 label="WhatsApp"
                 value="Chat with our team"
-                href={`https://wa.me/${COMPANY.whatsapp}`}
+                href={`https://wa.me/${company.whatsapp}`}
               />
-              <ContactRow icon={MapPin} label="Address" value={COMPANY.address} />
-              <ContactRow icon={Clock} label="Office Hours" value={COMPANY.hours} />
+              <ContactRow icon={MapPin} label="Address" value={company.address} />
+              <ContactRow icon={Clock} label="Office Hours" value={company.hours} />
             </div>
 
             <div className="mt-8 overflow-hidden rounded-2xl border border-charcoal-100 shadow">
@@ -124,7 +107,7 @@ export default function Contact() {
         <div className="mx-auto max-w-4xl px-6">
           <SectionHeading eyebrow="FAQs" title="Frequently Asked Questions" align="center" />
           <div className="mt-10">
-            <Accordion items={FAQS} />
+            <Accordion items={faqs} />
           </div>
         </div>
       </section>

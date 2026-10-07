@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Calendar } from "lucide-react";
-import type { Service, Project, TeamMember, Testimonial } from "../data/content";
+import type { Service, Project, TeamMember, Testimonial } from "../data/types";
+import Image from "./Image";
 import { ServiceIcon } from "./ServiceIcon";
+
+const CARD_SIZES = "(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw";
 
 export function ServiceCard({ service, index }: { service: Service; index: number }) {
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-charcoal-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
       <div className="relative h-48 overflow-hidden">
-        <img
-          src={service.image}
+        <Image
+          image={service.image}
           alt={service.title}
+          sizes={CARD_SIZES}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/70 to-transparent" />
@@ -51,9 +55,10 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-charcoal-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
       <div className="relative h-56 overflow-hidden">
-        <img
-          src={project.image}
+        <Image
+          image={project.image}
           alt={project.title}
+          sizes={CARD_SIZES}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent" />
@@ -96,9 +101,10 @@ export function TeamCard({ member }: { member: TeamMember }) {
   return (
     <div className="group overflow-hidden rounded-xl border border-charcoal-100 bg-white shadow-sm transition hover:shadow-xl">
       <div className="relative h-72 overflow-hidden">
-        <img
-          src={member.photo}
+        <Image
+          image={member.photo}
           alt={member.name}
+          sizes={CARD_SIZES}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 to-transparent" />

@@ -3,16 +3,19 @@ import { ArrowRight, Calendar, User } from "lucide-react";
 import PageHero from "../components/PageHero";
 import SectionHeading from "../components/SectionHeading";
 import CTASection from "../components/CTASection";
-import { INSIGHTS } from "../data/content";
-import { IMAGES } from "../data/images";
+import Image from "../components/Image";
+import { getPageImages, listInsights } from "../services/content";
 
 export default function Insights() {
+  const insights = listInsights();
+  const { hero } = getPageImages("insights");
+
   return (
     <div>
       <PageHero
         title="Insights & News"
         subtitle="Company updates, project milestones and useful construction insights."
-        image={IMAGES.aerialMarket}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Insights" }]}
       />
 
@@ -20,16 +23,17 @@ export default function Insights() {
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading eyebrow="From Our Team" title="Latest Articles" />
           <div className="mt-12 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-            {INSIGHTS.map((post) => (
+            {insights.map((post) => (
               <Link
                 key={post.slug}
                 to={`/insights/${post.slug}`}
                 className="group overflow-hidden rounded-xl border border-charcoal-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
               >
                 <div className="h-48 overflow-hidden">
-                  <img
-                    src={post.cover}
+                  <Image
+                    image={post.cover}
                     alt={post.title}
+                    sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
                   />
                 </div>

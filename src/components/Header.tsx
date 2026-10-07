@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Mail, MessageCircle, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
-import { COMPANY, NAV_LINKS, SERVICES } from "../data/content";
+import { getCompany, getNavLinks, listServices } from "../services/content";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
+  const company = getCompany();
+  const navLinks = getNavLinks();
+  const services = listServices();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -27,15 +30,15 @@ export default function Header() {
       <div className="hidden bg-charcoal-900 text-charcoal-200 md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 text-xs">
           <div className="flex items-center gap-5">
-            <a href={`tel:${COMPANY.phone1.replace(/\s/g, "")}`} className="flex items-center gap-1.5 hover:text-gold-400">
-              <Phone className="h-3.5 w-3.5" /> {COMPANY.phone1}
+            <a href={`tel:${company.phone1.replace(/\s/g, "")}`} className="flex items-center gap-1.5 hover:text-gold-400">
+              <Phone className="h-3.5 w-3.5" /> {company.phone1}
             </a>
-            <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-1.5 hover:text-gold-400">
-              <Mail className="h-3.5 w-3.5" /> {COMPANY.email}
+            <a href={`mailto:${company.email}`} className="flex items-center gap-1.5 hover:text-gold-400">
+              <Mail className="h-3.5 w-3.5" /> {company.email}
             </a>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-charcoal-400">{COMPANY.tagline}</span>
+            <span className="text-charcoal-400">{company.tagline}</span>
             <Link to="/careers" className="hover:text-gold-400">Careers</Link>
           </div>
         </div>
@@ -48,7 +51,7 @@ export default function Header() {
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            {NAV_LINKS.map((link) =>
+            {navLinks.map((link) =>
               link.label === "Services" ? (
                 <div
                   key={link.to}
@@ -68,7 +71,7 @@ export default function Header() {
                   </NavLink>
                   {servicesOpen && (
                     <div className="absolute left-0 top-full w-72 rounded-lg border border-charcoal-100 bg-white p-2 shadow-xl">
-                      {SERVICES.map((s) => (
+                      {services.map((s) => (
                         <Link
                           key={s.slug}
                           to={`/services/${s.slug}`}
@@ -99,7 +102,7 @@ export default function Header() {
 
           <div className="hidden items-center gap-3 lg:flex">
             <a
-              href={`https://wa.me/${COMPANY.whatsapp}`}
+              href={`https://wa.me/${company.whatsapp}`}
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-1.5 rounded-md border border-brand-600 px-3 py-2 text-sm font-semibold text-brand-700 transition hover:bg-brand-600 hover:text-white"
@@ -127,7 +130,7 @@ export default function Header() {
       {open && (
         <div className="border-t border-charcoal-100 bg-white px-6 pb-6 pt-2 shadow-lg lg:hidden">
           <nav className="flex flex-col divide-y divide-charcoal-100">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <Link key={link.to} to={link.to} className="py-3 text-sm font-semibold text-charcoal-800">
                 {link.label}
               </Link>
@@ -138,7 +141,7 @@ export default function Header() {
           </nav>
           <div className="mt-4 flex flex-col gap-3">
             <a
-              href={`https://wa.me/${COMPANY.whatsapp}`}
+              href={`https://wa.me/${company.whatsapp}`}
               target="_blank"
               rel="noreferrer"
               className="flex items-center justify-center gap-2 rounded-md border border-brand-600 px-4 py-3 text-sm font-semibold text-brand-700"

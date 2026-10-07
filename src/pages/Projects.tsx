@@ -3,8 +3,7 @@ import PageHero from "../components/PageHero";
 import SectionHeading from "../components/SectionHeading";
 import { ProjectCard } from "../components/Cards";
 import CTASection from "../components/CTASection";
-import { PROJECTS } from "../data/content";
-import { IMAGES } from "../data/images";
+import { getPageImages, listProjects } from "../services/content";
 
 const CATEGORIES = ["All", "Residential", "Commercial", "Civil", "Renovation", "Roads", "Infrastructure"] as const;
 const STATUSES = ["All", "Completed", "Ongoing"] as const;
@@ -12,13 +11,15 @@ const STATUSES = ["All", "Completed", "Ongoing"] as const;
 export default function Projects() {
   const [category, setCategory] = useState<(typeof CATEGORIES)[number]>("All");
   const [status, setStatus] = useState<(typeof STATUSES)[number]>("All");
+  const projects = listProjects();
+  const { hero } = getPageImages("projects");
 
   const filtered = useMemo(
     () =>
-      PROJECTS.filter(
+      projects.filter(
         (p) => (category === "All" || p.category === category) && (status === "All" || p.status === status)
       ),
-    [category, status]
+    [projects, category, status]
   );
 
   return (
@@ -26,7 +27,7 @@ export default function Projects() {
       <PageHero
         title="Our Projects"
         subtitle="A portfolio of completed and ongoing building, civil and road projects."
-        image={IMAGES.apartmentBalconies}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Projects" }]}
       />
 

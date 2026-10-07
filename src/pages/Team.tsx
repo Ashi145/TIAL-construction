@@ -2,16 +2,18 @@ import PageHero from "../components/PageHero";
 import SectionHeading from "../components/SectionHeading";
 import { TeamCard } from "../components/Cards";
 import CTASection from "../components/CTASection";
-import { TEAM } from "../data/content";
-import { IMAGES } from "../data/images";
+import { getPageImages, listTeamMembers } from "../services/content";
 
 export default function Team() {
+  const members = listTeamMembers();
+  const { hero } = getPageImages("team");
+
   return (
     <div>
       <PageHero
         title="Our Team"
         subtitle="The people behind Tial Construction's project delivery."
-        image={IMAGES.teamDiscussion}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Team" }]}
       />
 
@@ -20,11 +22,11 @@ export default function Team() {
           <SectionHeading
             eyebrow="Leadership & Key Personnel"
             title="Meet the Tial Construction Team"
-            description="Our directors, engineers and project managers bring together the technical and management skills needed to deliver projects safely and to specification. Profiles shown reflect roles within the company; names, photographs and qualifications will be updated once approved by Tial for publication."
+            description="Our directors, engineers and project managers bring together the technical and management skills needed to deliver projects safely and to specification. Professional qualifications and registration details will be updated once confirmed by Tial for publication."
           />
-          <div className="mt-12 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
-            {TEAM.map((member) => (
-              <TeamCard member={member} key={member.name + member.title} />
+          <div className="mt-12 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+            {members.map((member) => (
+              <TeamCard member={member} key={member.id} />
             ))}
           </div>
         </div>

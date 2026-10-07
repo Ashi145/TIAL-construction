@@ -2,11 +2,11 @@ import { useParams, Navigate, Link } from "react-router-dom";
 import { Calendar, User, ArrowLeft } from "lucide-react";
 import PageHero from "../components/PageHero";
 import CTASection from "../components/CTASection";
-import { INSIGHTS } from "../data/content";
+import { getInsight } from "../services/content";
 
 export default function InsightDetail() {
   const { slug } = useParams();
-  const post = INSIGHTS.find((p) => p.slug === slug);
+  const post = slug ? getInsight(slug) : undefined;
 
   if (!post) return <Navigate to="/insights" replace />;
 

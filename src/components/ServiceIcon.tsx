@@ -1,7 +1,7 @@
 import { Building2, Layers3, PaintRoller, ClipboardList, Route } from "lucide-react";
-import type { Service } from "../data/content";
+import type { ServiceIconName } from "../data/types";
 
-export function ServiceIcon({ icon, className = "h-5 w-5" }: { icon: Service["icon"]; className?: string }) {
+export function ServiceIcon({ icon, className = "h-5 w-5" }: { icon: ServiceIconName; className?: string }) {
   switch (icon) {
     case "building":
       return <Building2 className={className} />;

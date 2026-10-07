@@ -2,16 +2,17 @@ import { useParams, Navigate, Link } from "react-router-dom";
 import { MapPin, Calendar, User, CheckCircle2, ArrowRight, ArrowLeft } from "lucide-react";
 import PageHero from "../components/PageHero";
 import CTASection from "../components/CTASection";
+import ImageGallery from "../components/ImageGallery";
 import { ProjectCard } from "../components/Cards";
-import { PROJECTS } from "../data/content";
+import { getProject, listRelatedProjects } from "../services/content";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
-  const project = PROJECTS.find((p) => p.slug === slug);
+  const project = slug ? getProject(slug) : undefined;
 
   if (!project) return <Navigate to="/projects" replace />;
 
-  const related = PROJECTS.filter((p) => p.slug !== slug && p.category === project.category).slice(0, 3);
+  const related = listRelatedProjects(project);
 
   return (
     <div>
@@ -39,16 +40,7 @@ export default function ProjectDetail() {
             </ul>
 
             <h3 className="mt-10 font-display text-xl font-bold text-charcoal-900">Project Gallery</h3>
-            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {project.gallery.map((img, i) => (
-                <img
-                  key={i}
-                  src={img}
-                  alt={`${project.title} photo ${i + 1}`}
-                  className="h-48 w-full rounded-xl object-cover shadow-sm"
-                />
-              ))}
-            </div>
+            <ImageGallery images={project.gallery} alt={project.title} />
 
             <Link to="/projects" className="mt-10 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
               <ArrowLeft className="h-4 w-4" /> Back to All Projects

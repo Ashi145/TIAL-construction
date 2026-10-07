@@ -2,16 +2,18 @@ import { BadgeCheck, FileCheck2 } from "lucide-react";
 import PageHero from "../components/PageHero";
 import SectionHeading from "../components/SectionHeading";
 import CTASection from "../components/CTASection";
-import { CREDENTIALS, COMPANY } from "../data/content";
-import { IMAGES } from "../data/images";
+import { getCompany, getPageImages, listCredentials } from "../services/content";
 
 export default function Credentials() {
+  const company = getCompany();
+  const credentials = listCredentials();
+  const { hero } = getPageImages("credentials");
   return (
     <div>
       <PageHero
         title="Credentials"
         subtitle="Company registration, professional memberships and certifications."
-        image={IMAGES.blueprintReview}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Credentials" }]}
       />
 
@@ -20,10 +22,10 @@ export default function Credentials() {
           <SectionHeading
             eyebrow="Verified & Compliant"
             title="Company Registration & Credentials"
-            description={`${COMPANY.name} maintains company records that support prequalification and tender processes. Specific registration numbers, certificate copies and validity dates will be published once confirmed and approved by Tial.`}
+            description={`${company.name} maintains company records that support prequalification and tender processes. Specific registration numbers, certificate copies and validity dates will be published once confirmed and approved by Tial.`}
           />
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {CREDENTIALS.map((c) => (
+            {credentials.map((c) => (
               <div key={c.name} className="rounded-xl border border-charcoal-100 p-6 shadow-sm">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
                   <BadgeCheck className="h-6 w-6" />
@@ -47,7 +49,7 @@ export default function Credentials() {
               </p>
             </div>
             <a
-              href={`mailto:${COMPANY.tenderEmail}`}
+              href={`mailto:${company.tenderEmail}`}
               className="ml-auto shrink-0 rounded-md bg-gold-400 px-5 py-3 text-sm font-bold uppercase tracking-wide text-charcoal-900 transition hover:bg-gold-300"
             >
               Email Tenders Desk

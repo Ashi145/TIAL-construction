@@ -1,14 +1,15 @@
 import PageHero from "../components/PageHero";
-import { COMPANY } from "../data/content";
-import { IMAGES } from "../data/images";
+import { getCompany, getPageImages } from "../services/content";
 
 export default function Terms() {
+  const company = getCompany();
+  const { hero } = getPageImages("terms");
   return (
     <div>
       <PageHero
         title="Terms of Use"
         subtitle="Terms governing your use of the Tial Construction Ltd website."
-        image={IMAGES.concreteBuilding}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Terms of Use" }]}
       />
       <section className="py-16">
@@ -27,7 +28,7 @@ export default function Terms() {
             <h2 className="font-display text-xl font-bold text-charcoal-900">2. Website Content</h2>
             <p className="mt-3">
               Content on this website, including text, images, logos and project information, is provided for
-              general informational purposes about {COMPANY.name} and its services. While we aim to keep
+              general informational purposes about {company.name} and its services. While we aim to keep
               information accurate and current, we do not guarantee that all content is free of errors at all
               times.
             </p>
@@ -45,7 +46,7 @@ export default function Terms() {
           <div>
             <h2 className="font-display text-xl font-bold text-charcoal-900">4. Intellectual Property</h2>
             <p className="mt-3">
-              The Tial Construction name, logo and associated branding are the property of {COMPANY.name}. Content
+              The Tial Construction name, logo and associated branding are the property of {company.name}. Content
               on this website may not be copied or reproduced without prior written consent.
             </p>
           </div>
@@ -62,7 +63,7 @@ export default function Terms() {
           <div>
             <h2 className="font-display text-xl font-bold text-charcoal-900">6. Limitation of Liability</h2>
             <p className="mt-3">
-              {COMPANY.name} shall not be liable for any indirect or consequential loss arising from use of this
+              {company.name} shall not be liable for any indirect or consequential loss arising from use of this
               website or reliance on its content.
             </p>
           </div>

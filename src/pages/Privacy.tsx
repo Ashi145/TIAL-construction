@@ -1,14 +1,15 @@
 import PageHero from "../components/PageHero";
-import { COMPANY } from "../data/content";
-import { IMAGES } from "../data/images";
+import { getCompany, getPageImages } from "../services/content";
 
 export default function Privacy() {
+  const company = getCompany();
+  const { hero } = getPageImages("privacy");
   return (
     <div>
       <PageHero
         title="Privacy Policy"
         subtitle="How Tial Construction Ltd collects, uses and protects your information."
-        image={IMAGES.blueprintReview}
+        image={hero}
         crumbs={[{ label: "Home", to: "/" }, { label: "Privacy Policy" }]}
       />
       <section className="py-16">
@@ -18,7 +19,7 @@ export default function Privacy() {
           <div>
             <h2 className="font-display text-xl font-bold text-charcoal-900">1. Introduction</h2>
             <p className="mt-3">
-              {COMPANY.name} ("Tial", "we", "us") respects your privacy and is committed to protecting the personal
+              {company.name} ("Tial", "we", "us") respects your privacy and is committed to protecting the personal
               information you share with us through this website, including via our contact, quote and careers
               forms.
             </p>
@@ -65,15 +66,15 @@ export default function Privacy() {
             <h2 className="font-display text-xl font-bold text-charcoal-900">6. Your Rights</h2>
             <p className="mt-3">
               You may request access to, correction of, or deletion of your personal information held by us by
-              contacting us at {COMPANY.email}.
+              contacting us at {company.email}.
             </p>
           </div>
 
           <div>
             <h2 className="font-display text-xl font-bold text-charcoal-900">7. Contact Us</h2>
             <p className="mt-3">
-              For any questions about this Privacy Policy, please contact {COMPANY.name} at {COMPANY.email} or{" "}
-              {COMPANY.phone1}.
+              For any questions about this Privacy Policy, please contact {company.name} at {company.email} or{" "}
+              {company.phone1}.
             </p>
           </div>
 
