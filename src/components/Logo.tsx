@@ -4,10 +4,11 @@ import { getLayoutImages } from "../services/content";
 type LogoProps = {
   variant?: "light" | "dark";
   className?: string;
+  textClassName?: string;
   showText?: boolean;
 };
 
-export default function Logo({ variant = "dark", className = "", showText = true }: LogoProps) {
+export default function Logo({ variant = "dark", className = "", textClassName = "", showText = true }: LogoProps) {
   const { logo } = getLayoutImages();
   const textColor = variant === "light" ? "text-white" : "text-charcoal-900";
   const subTextColor = variant === "light" ? "text-brand-200" : "text-brand-600";
@@ -21,7 +22,7 @@ export default function Logo({ variant = "dark", className = "", showText = true
         className="h-10 w-auto shrink-0 object-contain"
       />
       {showText && (
-        <div className="leading-tight">
+        <div className={`leading-tight ${textClassName}`}>
           <div className={`font-display text-lg font-extrabold tracking-tight ${textColor}`}>
             TIAL <span className="text-gold-500">CONSTRUCTION</span>
           </div>
