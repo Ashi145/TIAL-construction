@@ -23,6 +23,7 @@ import {
   TESTIMONIAL_NOTE,
   VALUES,
 } from "../data/content";
+import { getStoredProjects, getStoredTeam } from "./storage";
 import type {
   ApproachStep,
   Company,
@@ -74,26 +75,27 @@ export function getService(slug: string): Service | undefined {
 }
 
 export function listProjects(): Project[] {
-  return PROJECTS;
+  return [...PROJECTS, ...getStoredProjects()];
 }
 
 export function getProject(slug: string): Project | undefined {
-  return PROJECTS.find((project) => project.slug === slug);
+  return listProjects().find((project) => project.slug === slug);
 }
 
 export function listFeaturedProjects(limit = 3): Project[] {
-  return PROJECTS.filter((project) => project.featured).slice(0, limit);
+  return listProjects()
+    .filter((project) => project.featured)
+    .slice(0, limit);
 }
 
 export function listRelatedProjects(project: Project, limit = 3): Project[] {
-  return PROJECTS.filter((candidate) => candidate.slug !== project.slug && candidate.category === project.category).slice(
-    0,
-    limit
-  );
+  return listProjects().filter(
+    (candidate) => candidate.slug !== project.slug && candidate.category === project.category
+  ).slice(0, limit);
 }
 
 export function listTeamMembers(): TeamMember[] {
-  return TEAM;
+  return [...TEAM, ...getStoredTeam()];
 }
 
 export function listEquipment(): Equipment[] {

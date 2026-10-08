@@ -14,6 +14,7 @@ export type ImageKey =
   | "building4"
   | "building5"
   | "concreteBuilding"
+  | "emmanuelOdea"
   | "engineersSite"
   | "excavatorSand"
   | "excavatorSite"
@@ -51,6 +52,7 @@ export const IMAGE_MANIFEST: Record<ImageKey, ImageEntry> = {
   "building4": {"variants": [{"file": "building4-640.webp", "width": 640, "height": 480, "bytes": 104546}, {"file": "building4-1280.webp", "width": 1280, "height": 960, "bytes": 329828}, {"file": "building4-1920.webp", "width": 1920, "height": 1440, "bytes": 602902}]},
   "building5": {"variants": [{"file": "building5-640.webp", "width": 640, "height": 480, "bytes": 104786}, {"file": "building5-1280.webp", "width": 1280, "height": 960, "bytes": 331650}]},
   "concreteBuilding": {"variants": [{"file": "concrete-building-640.webp", "width": 640, "height": 427, "bytes": 45222}, {"file": "concrete-building-1280.webp", "width": 1280, "height": 854, "bytes": 127182}], "source": "https://images.pexels.com/photos/1463917/pexels-photo-1463917.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1600&h=1067"},
+  "emmanuelOdea": {"variants": [{"file": "emmanuel-odea-480.webp", "width": 480, "height": 640, "bytes": 20118}, {"file": "emmanuel-odea-960.webp", "width": 960, "height": 1280, "bytes": 64586}]},
   "engineersSite": {"variants": [{"file": "engineers-site-640.webp", "width": 640, "height": 427, "bytes": 42602}, {"file": "engineers-site-1280.webp", "width": 1280, "height": 854, "bytes": 86682}], "source": "https://images.pexels.com/photos/8961065/pexels-photo-8961065.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1600&h=1067"},
   "excavatorSand": {"variants": [{"file": "excavator-sand-640.webp", "width": 640, "height": 427, "bytes": 78048}, {"file": "excavator-sand-1280.webp", "width": 1280, "height": 854, "bytes": 222392}], "source": "https://images.pexels.com/photos/33870733/pexels-photo-33870733.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1600&h=1067"},
   "excavatorSite": {"variants": [{"file": "excavator-site-640.webp", "width": 640, "height": 427, "bytes": 63204}, {"file": "excavator-site-1280.webp", "width": 1280, "height": 854, "bytes": 180320}], "source": "https://images.pexels.com/photos/20296265/pexels-photo-20296265.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1600&h=1067"},

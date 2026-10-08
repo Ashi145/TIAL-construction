@@ -74,6 +74,7 @@ LOCAL = {
     "building4": ("building4.jpeg", [640, 1280, 1920]),
     "building5": ("buiding5.jpeg", [640, 1280]),
     "homepageBuilding": ("homepage-building.jpeg", [480, 640, 960]),
+    "emmanuelOdea": ("civil-engineer.jpeg", [480, 960]),
     "managingDirector": ("managing Director.png", [480, 960]),
     "generalSecretary": ("general-secretary.jpeg", [480, 840]),
     "projectManager": ("project-manager.jpeg", [480, 960]),

@@ -26,4 +26,12 @@ export const TEAM: TeamMember[] = [
     photo: IMAGES.projectManager,
     qualifications: ["To confirm professional qualifications", "To confirm registration/membership"],
   },
+  {
+    id: "civil-engineer",
+    name: "Emmanuel Odea",
+    title: "Civil Engineer",
+    bio: "Provides technical engineering oversight for site works, structural coordination, and quality control to ensure safe and efficient project delivery.",
+    photo: IMAGES.emmanuelOdea,
+    qualifications: ["Civil engineering practice", "Site supervision and quality control"],
+  },
 ];
